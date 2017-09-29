@@ -15,8 +15,8 @@ import (
 )
 
 const (
-	appId   = 41994
-	appHash = "269069e15c81241f5670c397941016a2"
+	appId   = 48841
+	appHash = "3151c01673d412c18c055f089128be50"
 )
 
 type MTProto struct {
