@@ -443,3 +443,20 @@ func (m *MTProto) Halt() {
 func dump(x interface{}) {
 	_, _ = pp.Println(x)
 }
+func (m *MTProto) GetUserID(phone string) int32 {
+	var id int32=-1
+	resp := make(chan TL, 1)
+	m.queueSend <- packetToSend{TL_contacts_getContacts{""}, resp}
+	x := <-resp
+	list, ok := x.(TL_contacts_contacts)
+	if !ok {
+		fmt.Errorf("RPC: %#v", x)
+	}
+	for _, v := range list.users {
+		if v.(TL_userContact).phone == phone {
+			id=v.(TL_userContact).id
+		}
+	}
+
+	return id
+}
