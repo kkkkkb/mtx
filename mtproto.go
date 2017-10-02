@@ -308,7 +308,7 @@ func (m *MTProto) SendRoutine() {
 		err := m.SendPacket(x.msg, x.resp)
 		if err != nil {
 			fmt.Println("SendRoutine:", err)
-			os.Exit(2)
+
 		}
 	}
 }
