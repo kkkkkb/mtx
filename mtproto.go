@@ -235,7 +235,7 @@ func (m *MTProto) Auth(phonenumber string) error {
 	return nil
 }
 
-func (m *MTProto) GetContacts() (map[int32]TL_userContact, error) {
+func (m *MTProto) GetContacts() ([]TL, error) {
 	resp := make(chan TL, 1)
 	var contacts = make(map[int32]TL_userContact)
 	m.queueSend <- packetToSend{TL_contacts_getContacts{""}, resp}
@@ -264,8 +264,8 @@ func (m *MTProto) GetContacts() (map[int32]TL_userContact, error) {
 			contacts[v.user_id].username, contacts[v.user_id].phone,
 		)
 	}
-
-	return contacts, nil
+	return list.contacts, nil
+	//return contacts, nil
 }
 
 func (m *MTProto) SendMsg(user_id int32, msg string) error {
