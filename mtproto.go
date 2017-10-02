@@ -235,19 +235,19 @@ func (m *MTProto) Auth(phonenumber string) error {
 	return nil
 }
 
-func (m *MTProto) GetContacts() error {
+func (m *MTProto) GetContacts() (map[int32]TL_userContact, error) {
 	resp := make(chan TL, 1)
+	var contacts = make(map[int32]TL_userContact)
 	m.queueSend <- packetToSend{TL_contacts_getContacts{""}, resp}
 	x := <-resp
 	list, ok := x.(TL_contacts_contacts)
 	if !ok {
-		return fmt.Errorf("RPC: %#v", x)
+		return nil, fmt.Errorf("RPC: %#v", x)
 	}
-	contacts := make(map[int32]TL_userContact)
+	contacts = make(map[int32]TL_userContact)
 	for _, v := range list.users {
 		if v, ok := v.(TL_userContact); ok {
 			contacts[v.id] = v
-
 		}
 	}
 	fmt.Printf(
@@ -265,7 +265,7 @@ func (m *MTProto) GetContacts() error {
 		)
 	}
 
-	return nil
+	return contacts, nil
 }
 
 func (m *MTProto) SendMsg(user_id int32, msg string) error {
@@ -444,7 +444,7 @@ func dump(x interface{}) {
 	_, _ = pp.Println(x)
 }
 func (m MTProto) GetUserID(phone string) int32 {
-	var id int32=-1
+	var id int32 = -1
 	resp := make(chan TL, 1)
 	m.queueSend <- packetToSend{TL_contacts_getContacts{""}, resp}
 	x := <-resp
@@ -454,7 +454,7 @@ func (m MTProto) GetUserID(phone string) int32 {
 	}
 	for _, v := range list.users {
 		if v.(TL_userContact).phone == phone {
-			id=v.(TL_userContact).id
+			id = v.(TL_userContact).id
 		}
 	}
 
