@@ -8,7 +8,6 @@ import (
 //接收消息(短信)
 func main() {
 	mtx := mtprotox.MTProto{}
-	mtx.SendMsg(13178818349,"111")
+	mtx.SendMsg(10,"111")
 	fmt.Println(mtx)
-
 }
