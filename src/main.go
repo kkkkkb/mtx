@@ -13,7 +13,8 @@ func usage() {
 	fmt.Print("The commands are:\n\n")
 	fmt.Print("    auth  <phone_number>            auth connection by code\n")
 	fmt.Print("    msg   <user_id> <msgtext>       send message to user\n")
-	fmt.Print("  ms   <phone> <msgtext>       send message to user\n")
+	fmt.Print("    ms   <phone> <msgtext>       send message to user\n")
+	fmt.Print("    recive   <phone> <msgtext>       recive message to user\n")
 	fmt.Print("    list                            get contact list\n")
 	fmt.Println()
 }
@@ -83,6 +84,8 @@ func main() {
 		_,err = m.GetContacts()
 	case "recive":
 		stock := make(chan struct{})
+		uid,_ := m.GetContacts()
+		fmt.Println("uid:",uid)
 		a,ok := m.Read(stock)
 
 		fmt.Println(a,ok)
