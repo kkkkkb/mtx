@@ -12,7 +12,7 @@ func main() {
 
 	go func() {
 		mtx := mtprotox.MTProto{}
-		fmt.Println("mtx:",mtx);
+		//fmt.Println("mtx:",mtx);
 		fmt.Println("user_id",mtx.GetUserID("13178818349"));
 		mtx.SendMsg(10,"111")
 		fmt.Println(mtx)
