@@ -33,7 +33,7 @@ func main() {
 	fmt.Println("telegram_go:",wd + "/.telegram_go")
 
 	//命令map
-	commands := map[string]int{"auth": 1, "msg": 2, "list": 0}
+	commands := map[string]int{"auth": 1, "msg": 2, "list": 0,"recive":0}
 	//验证标识
 	valid := false
 	//循环命令map，对比看一下执行的是哪个命令
