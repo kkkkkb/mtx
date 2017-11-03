@@ -7,7 +7,16 @@ import (
 
 //接收消息(短信)
 func main() {
-	mtx := mtprotox.MTProto{}
-	mtx.SendMsg(10,"111")
-	fmt.Println(mtx)
+
+	ok := make(chan bool)
+
+	go func() {
+		mtx := mtprotox.MTProto{}
+		fmt.Println("mtx:",mtx);
+		fmt.Println(mtx.GetUserID("13178818349"));
+		mtx.SendMsg(10,"111")
+		fmt.Println(mtx)
+	}()
+
+	<- ok
 }
